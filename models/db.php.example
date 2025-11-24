@@ -1,0 +1,25 @@
+<?php
+// Fill this with your credentials and rename it to just "db.php"
+class DataBase {
+    const server = "SORRY NOTHING";
+    const usernm = "SORRY NOTHING";
+    const passwd = "SORRY NOTHING";
+    const dbname = "SORRY NOTHING";
+
+    public static function Connect() {
+        try {
+            $connection = new PDO(
+                "mysql:host=" . self::server . 
+                "dbname=" . self::dbname . 
+                ";charset=utf8mb4", 
+                self::usernm, self::passwd
+            );
+
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $connection;
+        } catch (PDOException $th) {
+            return "Error !! " . $th->getMessage();
+        }
+    }
+}
+?>

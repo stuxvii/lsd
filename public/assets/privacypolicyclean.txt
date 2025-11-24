@@ -1,0 +1,52 @@
+First of all, I would like to apologize for what you had to read previously, but it's necessary. Also it's very releasing to write so much brainrot. No tricks here, you can copy the text below without worrying about any trolling now.
+Last modification date: 11th of November, 2025. 11/11/25 (DD/MM/YY)
+
+This Privacy Policy describes how LSDBLOX ("we, "us," or "our") collects, uses, and discloses information when you use our website, lsdblox.cc, and our services (collectively, the "Service"). By using the Service, you acknowledge that you have read and understood this policy and consent to the processing of your information as described herein.
+
+1. Information We Collect
+We collect information you provide directly to us when you use the Service. This includes:
+Account Information: When you create an account, you provide a password, which we store as an Argon2ID hash, and a username, which we store in plain-text. You also provide your Discord User ID, which is attached to your account for security, communication, and wider access to community features.
+User-Generated Content: Any content you input or upload to the site is collected, and stored. This includes but is not limited to items, assets, and any other User Generated Content (UGC) such as uploaded images, 3D models, audios, digital spaces, etc. While we do not require or expect you to upload any sensitive personal information, any personal data you voluntarily include in your UGC is also collected and stored.
+Technical Information: Your IP address may be temporarily stored unhashed in our Apache access logs for a period of up to 7 days to monitor for abuse, exploits, or hacking attempts.
+Activity Logs: We reserve the right to log certain actions you perform on the site, such as purchasing catalog items, failed login attempts, the frequency of your usage of the Service, and other miscellaneous actions for service and security purposes.
+
+2. How We Use Your Information
+We use the information we collect for the following purposes:
+Authentication and Account Management: Your hashed password is used to authenticate you when you log in. Your Discord User ID is linked to your account for identity and security purposes.
+Service Operation and Security: Your IP address and Discord User ID can be used to restrict access from networks, and detect alternate accounts.
+Invite and Access Keys: When an invite or access key is assigned to you, your Discord User ID is attached to the key to link it back to your account.
+Moderation and Safety: We may use your information to enforce our Terms of Service and Rules as to ensure a safe environment for all users.
+3. How We Share Your Information
+We do not sell or rent your personal information to third parties. We may be required to disclose your information if we receive a valid court order or a similar legal request.
+
+4. Your Rights And Our Rights
+Right of Access:
+Request all of your data, including UGC. Depending on how much content you may have submitted, it may take us from 1-7 business days to retrieve all of your personal information.
+
+Right to Erasure:
+Erase your personal identifiable information from the Service such as usernames, passwords, Discord User IDs, and preferences at any time.
+If you are a resident in the European Economic Area and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details at https://www.edps.europa.eu/about-edps/contact_en.
+
+5. Data Retention and Deletion
+Data Deletion: To delete your personally identifiable information such as usernames, passwords, Discord User IDs and preferences you may fill the following form: https://lsdblox.cc/account/delete
+Full Data Deletion: While your User Generated Content is immediately unlinked from your identity once your identifiable information is erased (You're still identified with a number, but your username and every single bit of PII is changed to "[REDACTED]"), you may make a request to permanently delete your UGC from our servers and backups, as in a GDPR request or similar right that your jurisdiction provides you. To initiate this, you must send an email requesting so to admin@lsdblox.cc.
+Log Data: IP addresses in our Apache access logs are periodically deleted within a 7-day period.
+
+6. Security
+While we utilize security measures such as secure hashing for passwords and encryption for data transmission, no security system can be guaranteed to be 100% secure. We urge you to avoid posting any sensitive personal information.
+
+7. Children's Privacy
+LSDBLOX is not intended for use by anyone under the age of 13. If we discover that a user is under 13, we will immediately prohibit their access and erase both their user information and their personally identifiable information, excluding their IP address, which we will retain in an anonymized/hashed form to enforce the restrictions further.
+
+8. Third-Party Links and Content
+We are not responsible for the content or privacy practices of websites and services not hosted on lsdblox.cc. Additionally, we are not responsible for user-generated content; you are responsible for the content you post.
+
+9. Technical Information
+IP addresses may be automatically stored by our webserver, NGINX, to filter out malicious bots and improve the service.
+Cookies may be stored in your device for the sole purpose of authentication. We do not track you or have any partners which we share these cookies with.
+
+10. Changes to This Policy
+We may update this Privacy Policy from time to time. When we make changes, we will notify all users via an acknowledgement form in our website and, for general awareness, a public ping in our community Discord Server. Your continued use of the Service after these changes constitutes your acceptance of the new policy.
+
+11. Contact Us
+If you have any questions about this Privacy Policy or wish to request the erasure of your data associated with the Services, please contact us at admin@lsdblox.cc. We will respond within less than 30 business days, depending on our availability. LSDBLOX is the Data Controller for the personal information collected through the Service.
