@@ -47,7 +47,7 @@ foreach ($fetch as $row) {
                     <source src="/asset/?id=<?=$id?>&force" type="audio/mpeg">
                 </audio>
                 <?php
-            } else if ($assettypegroup == "mesh") {
+            } else if ($assettypegroup == "obj") {
                 ?>
                     <img class="catalogitemimg" src="/asset/thumbnail?id=<?=$id?>&force=true">
                 <?php

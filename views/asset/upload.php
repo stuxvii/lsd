@@ -62,7 +62,7 @@
             <input type="checkbox" name="public" id="public" checked>
             Public
         </label>
-        <input type="hidden" name="csrftoken" value="<?=$_SESSION["csrftoken"]?>">
+        <input type="hidden" name="csrftoken" value="<?= $_SESSION['csrftoken'] ?>">
         <select id="type" name="type" style="margin-top:6px;">
             <option value="1">Decal</option>
             <option value="2">Audio</option>
@@ -70,19 +70,15 @@
             <option value="5">Shirt</option>
             <option value="6">Pants</option>
             <option value="7">Face (Image)</option>
-            <?php if ($this->user_info["isoperator"]): ?>
             <option value="8">Head (OBJ)</option>
             <option value="9">Hat (OBJ)</option>
-            <?php endif; ?>
         </select>
         <br>
-        <?php if ($this->user_info["isoperator"]): ?>
-        <label hidden id="hat_texture_label" for="hat_texture">
-            Hat texture (Decal)
+        <label hidden id="texture_label" for="texture">
+            Mesh texture
             <br>
-            <input type="hidden" placeholder="34" name="hat_texture" id="hat_texture" required>
+            <input type="hidden" placeholder="Decal ID" name="texture" id="texture">
         </label>
-        <?php endif; ?>
         <input type="submit" value="Upload">
     </form>
 </div>
@@ -100,19 +96,18 @@
     }
 
     document.getElementById('type').addEventListener('input', function() {
-        console.log(document.getElementById('type').value );
-        if (document.getElementById('type').value == 9) {
-            document.getElementById('hat_texture_label').removeAttribute("hidden", false);
-            document.getElementById('hat_texture').type = "number";
+        if (document.getElementById('type').value == 9 || document.getElementById('type').value == 8) {
+            document.getElementById('texture_label').removeAttribute("hidden", false);
+            document.getElementById('texture').type = "number";
         } else {
-            document.getElementById('hat_texture_label').setAttribute("hidden", true);
-            document.getElementById('hat_texture').type = "hidden";
+            document.getElementById('texture_label').setAttribute("hidden", true);
+            document.getElementById('texture').type = "hidden";
         }
     })
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        if (document.getElementById('type').value == 9 && document.getElementById('hat_texture').value == undefined) {
+        if ((document.getElementById('type').value == 9 || document.getElementById('type').value == 8) && document.getElementById('texture').value == undefined) {
             if (!confirm("WARNING! YOU HAVE **NOT** SET A TEXTURE FOR THIS HAT! You may wish to select one. Press OK/Accept to continue anyways.")) {
                 return;
             }

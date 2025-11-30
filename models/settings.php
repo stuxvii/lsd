@@ -13,15 +13,7 @@ $GLOBALS['mime_types'] = [
         'audio/ogg',
         'audio/wav',
         'audio/opus'],
-    'mesh' => ['text/plain'],
-    'hat' => ['text/plain'],
-    'head' => ['text/plain'],
-    'raw' => ['application/octet-stream', 'text/plain'],
-    'face' => [
-        'image/jpeg',
-        'image/png',
-        'image/webp'
-    ]
+    'obj' => ['text/plain'],
 ];
 
 $GLOBALS['color_schemes'] = [
@@ -156,8 +148,7 @@ $GLOBALS['fonts_list'] = [
 $GLOBALS['asset_types'] = [
     'image' => [1, 4, 5, 6, 7],
     'audio' => [2],
-    'hat' => [8],
-    'head' => [9],
+    'obj' => [8, 9],
 ];
 
 $GLOBALS['brickcolor'] = ['111111' => 1003, '575857' => 148, 'A1A5A2' => 2, 'CDCDCD' => 1002, 'ECECEC' => 40, 'F8F8F8' => 1001, 'EDEAEA' => 348, 'E9DADA' => 349, 'FFC9C9' => 1025, 'FF9494' => 337, '965555' => 344,

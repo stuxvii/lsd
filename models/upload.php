@@ -28,6 +28,7 @@ function handle_db_operations(
     string $assetdesc,
     bool $assetvisibility,
     int $fee, 
+    int $texture = NuLL, 
     ): void {
         if ($assetvalue > 2147483647) { // failsafe for if the user feels silly enough to put a quadvigintillion dollars for their price
             $assetvalue = 2147483647;
@@ -40,8 +41,9 @@ function handle_db_operations(
             $db->beginTransaction();
             $uploadts = time();
             $stmt = $db->prepare('INSERT INTO `items` 
-            (`name`,`asset`,`owner`,`value`,`public`,`uploadts`,`type`,`desc`) 
+            (`name`,`asset`,`owner`,`value`,`public`,`uploadts`,`type`,`desc`,`hat_texture`) 
             VALUES (?,
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -50,7 +52,7 @@ function handle_db_operations(
                     ?,
                     ?)
             ');
-            $stmt->execute([$assetname, $target_file, $uid, $assetvalue, $assetvisibility, $uploadts, $assettype, $assetdesc]);
+            $stmt->execute([$assetname, $target_file, $uid, $assetvalue, $assetvisibility, $uploadts, $assettype, $assetdesc, $texture]);
             $itemid = $db->lastInsertId();
             
             $curinv = json_decode($inv, true) ?? [];
@@ -64,13 +66,12 @@ function handle_db_operations(
                 $stmt = $db->prepare('UPDATE economy SET money = money - ? WHERE id = ? AND money >= ?');
                 $stmt->execute([$fee, $uid, $fee]);
                 if ($stmt->rowCount() === 0) {
-                    sendjsonback('error', "Insufficient funds! You need at least ¥$fee to upload that.", 403);
+                    sendjsonback('error', "Insufficient funds! You need at least ¥$fee to upload that.", 402);
                 }
             }
             
             $db->commit();
             sendjsonback('success', "Your asset has been uploaded! Check its status at https://lsdblox.cc/asset/item?id=$itemid", 201, $itemid);
-            
         } catch (\Exception $e) {
             $db->rollback();
             error_log("DB Error: " . $e->getMessage());
@@ -187,20 +188,21 @@ if ($assettypegroup == 'image') {
         sendjsonback('error', 'Asset processing failed (Imagick): ' . $e->getMessage(), 500);
     }
 }
-if ($assettypegroup == 'mesh') {
+if ($assettypegroup == 'obj') {
     try {
         $file_content = @file_get_contents($tmp_name);
-        if ($file_content !== false && verify_mesh($file_content)) {
-            $target_file = $target_dir . $new_file_name . '.mesh';
+        if ($file_content !== false) {
+            $hat_texture = (int)$_POST['texture'] ?? nuLl;
+            $target_file = $target_dir . $new_file_name . '.obj';
             
             if (!move_uploaded_file($tmp_name, ROOT_PATH . '/' . $target_file)) {
                 sendjsonback('error', 'Asset upload failed during mesh save.', 500);
             }
             
-            handle_db_operations($this->db, $assetname, $target_file, $this->user_info["id"], $assetvalue, $assettype, $this->economy["inv"], $assetdesc, $assetvisibility, $fee);
+            handle_db_operations($this->db, $assetname, $target_file, $this->user_info["id"], $assetvalue, $assettype, $this->economy["inv"], $assetdesc, $assetvisibility, $fee, $hat_texture);
             exit;
         } else {
-            sendjsonback('error', 'Unsupported mesh! Remember that it MUST be version 1.00 and be in plain text.');
+            sendjsonback('error', 'Some weird error processing your file ocurred. Inform this to the authorities!');
         }
     } catch (ImagickException $e) {
         sendjsonback('error', 'Asset processing failed (Imagick): ' . $e->getMessage(), 500);
@@ -208,7 +210,7 @@ if ($assettypegroup == 'mesh') {
 }
 if ($assettypegroup == 'audio') {
     try {
-        $target_file = $target_dir . $new_file_name . '.mp3';
+        $target_file = $target_dir . $new_file_name . '.ogg';
 
         $ffmpeg = FFMpeg\FFMpeg::create();
         $ffprobe = FFMpeg\FFProbe::create();
@@ -228,7 +230,7 @@ if ($assettypegroup == 'audio') {
         
         $final_abr_kbps = max($min_abr_kbps, min($max_abr_kbps, $target_abr_kbps));
 
-        $format = new FFMpeg\Format\Audio\Mp3();
+        $format = new FFMpeg\Format\Audio\Vorbis();
         $format->setAudioKiloBitrate($final_abr_kbps);
         $audio->setAdditionalParameters([
             '-af', 'loudnorm=i=-16:lra=11:tp=-1.5',
@@ -248,21 +250,6 @@ if ($assettypegroup == 'audio') {
         sendjsonback('error', 'Audio processing failed (FFMpeg): ' . var_dump($e), 500);
     } catch (\Exception $e) {
         sendjsonback('error', 'Asset upload failed: ' . $e->getMessage(), 500);
-    }
-}
-if ($this->user_info['isoperator']) {
-    try {
-        $target_file = $target_dir . $new_file_name . '.obj';
-
-        if (!move_uploaded_file($tmp_name, ROOT_PATH . '/' . $target_file)) {
-            sendjsonback('error', 'Asset upload failed during hat save.', 500);
-        }
-        
-        handle_db_operations($this->db, $assetname, $target_file, $this->user_info["id"], $assetvalue, $assettype, $this->economy["inv"], $assetdesc, $assetvisibility, $fee);
-        exit;
-
-    } catch (ImagickException $e) {
-        sendjsonback('error', 'Asset processing failed (Imagick): ' . $e->getMessage(), 500);
     }
 }
 

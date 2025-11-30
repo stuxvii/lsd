@@ -4,10 +4,16 @@ class HomeController extends BaseController {
         if (isset($this->economy["lastbuxclaim"])) {
             $can_claim_stipend = ($this->economy["lastbuxclaim"] + 43200) < time() ? true : false;
             if ($can_claim_stipend) {
-                $stmtstipend = $this->db->prepare("UPDATE economy SET `money` = `money` + 25 WHERE id = ?");
-                $stmtstipend->execute([$this->user_info["id"]]);
-                $stmtrefresh = $this->db->prepare("UPDATE economy SET lastbuxclaim = ? WHERE id = ?");
-                $stmtrefresh->execute([time(), $this->user_info["id"]]);
+                try {
+                    $this->db->startTransaction();
+                    $stmtstipend = $this->db->prepare("UPDATE economy SET `money` = `money` + 25 WHERE id = ?");
+                    $stmtstipend->execute([$this->user_info["id"]]);
+                    $stmtrefresh = $this->db->prepare("UPDATE economy SET lastbuxclaim = ? WHERE id = ?");
+                    $stmtrefresh->execute([time(), $this->user_info["id"]]);
+                    $this->db->commit();
+                } catch (Exception $e) {
+                    error_log("This wasn't meant to happen. What the sigma!? Error: {$e}");
+                }
             }
         }
         ob_start();

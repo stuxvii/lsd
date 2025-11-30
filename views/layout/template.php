@@ -147,6 +147,7 @@ if (isset($this->user_info['id'])) {
 						<div id="you_menu" class="drop_down hidden">
 							<a title="Time left until stipend claim eligibility" id="stipend_countdown">--:--:--</a>
 							<?php if ($this->user_info['isoperator']): ?>
+							<a href="/admin/">Dashboard</a>
 							<a href="/moderation/">Moderate</a>
 							<a href="/moderation/reports">Reports</a>
 							<?php endif; ?>

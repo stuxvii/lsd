@@ -27,8 +27,9 @@ $controller = strtolower($controller);
 $action = array_shift($segments);
 $action = !empty($action) ? $action : 'Main';
 
-if ($path === "/index.php") {
-    die("Yeehaw!");
+if (MAINTENANCE_ON) {
+    require_once ROOT_PATH . "/views/layout/maintenance.php";
+    exit;
 }
 
 $controller_location = ROOT_PATH . "/controllers/$controller.controller.php";
