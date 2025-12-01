@@ -35,29 +35,6 @@ class BaseController {
             }
         }
     }
-    
-    public function get_place(int $place_id): Array {
-        $get_place_stmt = $this->db->prepare("SELECT `owner`, `name`, `desc`, `public` FROM items WHERE id = ?");
-        $get_place_stmt->execute([$place_id]);
-        $fetch = $get_place_stmt->fetch();
-
-        $data = [
-            "id" => $place_id,
-            "rootPlaceId" => $place_id,
-            "name" => $fetch["name"],
-            "description" => $fetch["desc"],
-            "privacyType" => "Public",
-            "creatorType" => "User",
-            "creatorTargetId" => $fetch["owner"],
-            "creatorName" => $this->getuser($fetch["owner"])["username"],
-            "created" => date("Y-m-d", $fetch["uploadts"]),
-            "updated" => date("Y-m-d", $fetch["uploadts"]),
-            "isArchived" => false,
-            "isActive" => (bool)$fetch["public"],
-        ];
-
-        return $data;
-    }
 
     public function getuser(int $user_id): Array {
         $getuserstmt = $this->db->prepare("
@@ -188,26 +165,3 @@ function time_elapsed_string($lastseendate) {
     
     return "just now";
 }
-
-function verify_mesh(string $mesh) {
-    $regex = "/\[.*?\]/";
-    $lines = explode("\n", trim($mesh));
-
-    if (count($lines) != 3) {
-        return false;
-    }
-
-    if (trim($lines[0]) != "version 1.00") {
-        return false;
-    }
-
-    $triplets = preg_match_all($regex, trim($lines[2]));
-    $faces = $triplets / 9; // every 9 triplets makes a face
-
-    if ($faces == (int)trim($lines[1])) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
