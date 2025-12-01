@@ -110,6 +110,7 @@ if (logged_in) { // we wouldnt want to load allat specially since they're not au
     })
 
     music_play.addEventListener("click", function () {
+        music_song_name.innerHTML = song_names[song_id]["name"];
         audio_element.play();
     })
 

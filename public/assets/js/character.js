@@ -226,10 +226,15 @@ async function get_inventory(id) {
     }
 }
 
+category_selection.addEventListener("input", function() {
+    switch_category_button.classList.add("blink");
+})
+
 switch_category_button.addEventListener("click", 
-    async function() {
+    function() {
         const val = category_selection.value;
         get_inventory(val);
+        switch_category_button.classList.remove("blink");
     }
 )
 inventory_drawer

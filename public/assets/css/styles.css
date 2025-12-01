@@ -811,3 +811,20 @@ td {
     user-select:none;
     cursor: pointer;
 }
+
+@keyframes blink_thing {
+    0% {
+        background-color: var(--primary-color);
+    }
+    50% {
+        background-color: var(--secondary-color);
+    }
+    100% {
+        background-color: var(--primary-color);
+    }
+}
+
+.blink {
+    animation: 2s forwards 0s blink_thing infinite;
+    animation-timing-function: cubic-bezier(.39,.58,.57,1);
+}
