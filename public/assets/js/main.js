@@ -80,25 +80,32 @@ if (logged_in) { // we wouldnt want to load allat specially since they're not au
 
     async function play_song(song_id, current_time = 0) {
         audio_element.src = "/asset/?id=" + song_id;
+        await new Promise(resolve => {
+            audio_element.onloadedmetadata = resolve;
+        });
         audio_element.currentTime = current_time;
         await audio_element.play();
         music_song_duration.textContent = format_duration(audio_element.duration);
         music_song_time.textContent = format_duration(audio_element.currentTime);
         music_song_name.innerHTML = song_names[song_id]["name"];
-        console.log(song_names);
         localStorage.setItem("current_song", song_id);
     }
 
     if (localStorage.getItem("current_song")) {
         var current_time = localStorage.getItem("position") || 0.00;
+        console.log(localStorage);
+        console.log(current_time);
         play_song(localStorage.getItem("current_song"), current_time);
+        if (audio_element.paused) {
+            music_song_name.innerHTML = "Please enable autoplaying audio."
+        }
     }
 
     music_stop.addEventListener("click", function () {
         audio_element.pause();
         audio_element.currentTime = null;
-        localStorage.removeItem("position");
-        localStorage.removeItem("current_song");
+        localStorage.clear();
+        music_song_name.innerHTML = "No music playing.."
         music_progressbar.style.width = "0%";
     })
 

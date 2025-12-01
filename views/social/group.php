@@ -227,7 +227,7 @@ if ($group_number > 0 && $stmt_get_groups->rowCount() > 0) {
 <span><?= htmlspecialchars($groupsettings['desc']) ?></span>
 <div class="fr v_mid">
 	<form id="plrform" method="post" action="/social/group/join">
-		<input type="submit" value="Join">
+		<input type="submit" value="<?=$is_already_in_group ? "Leave" : "Join"?>">
 		<input type="hidden" name="csrftoken" value="<?= $_SESSION['csrftoken'] ?>">
 		<input type="hidden" name="group" value="<?= $groupsettings['id'] ?>">
 	</form>

@@ -46,4 +46,5 @@ if (count($transactions) > 0) {
     } ?>
     </table>
 </div>
+<a href="/social/leaderboard">Leaderboards</a>
 <a href="/casino">Casino</a>

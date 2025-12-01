@@ -233,4 +233,4 @@ switch_category_button.addEventListener("click",
     }
 )
 inventory_drawer
-get_inventory(2);
+get_inventory(4);

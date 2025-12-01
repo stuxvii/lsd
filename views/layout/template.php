@@ -132,11 +132,12 @@ if (isset($this->user_info['id'])) {
 					<a href="/" title="LSDBlox"><img height='20' class="lsdblox_logo" alt="LSDBLOX"
 							src='/assets/images/anim/logo.gif'></a>
 					<?php if (MAINTENANCE_ON == false || isset($this->user_info['isoperator'])): ?>
+						<?php if ($this->user_info): ?>
 					<a href="/asset/catalog">Catalog</a>
-					<?php if ($this->user_info): ?>
 					<a href="/asset/upload">Upload</a>
 					<a href="/you/character">Avatar</a>
 					<a href="/you/inventory">Inventory</a>
+					<a href="/social/group">Groups</a>
 				</div>
 				<div class="v_mid">
 					<a href="/you/">
@@ -153,6 +154,7 @@ if (isset($this->user_info['id'])) {
 							<a href="/moderation/">Moderate</a>
 							<a href="/moderation/reports">Reports</a>
 							<?php endif; ?>
+							<a href="/info/">Legal</a>
 							<a href="/account/config">Settings</a>
 							<a href="/account/logout">Log out</a>
 						</div>
@@ -172,10 +174,12 @@ if (isset($this->user_info['id'])) {
 				<?= $page_content; ?>
 			</div>
 				<div class="navbar bottomnavbar">
+					<?php if (!$this->user_info): ?>
 					<div class="v_mid">
 						<a href="/info/privacypolicy">Privacy</a>
 						<a href="/info/termsofservice">TOS</a>
 					</div>
+					<?php endif; ?>
 					<?php if ($this->user_info): ?>
 					<div class="v_mid music_player">
 						<span class="music_btn" id="music_play">►</span>
@@ -232,10 +236,6 @@ if (isset($this->user_info['id'])) {
 					</div>
 
 					<?php endif; ?>
-					<div class="v_mid">
-						<a href="/info/status">Status</a>
-						<a href="/info/attribution">Thanks</a>
-					</div>
 				</div>
 			</div>
 					<?php

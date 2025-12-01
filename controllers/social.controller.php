@@ -12,13 +12,13 @@ class SocialController extends BaseController{
             $this->other_uid = $_GET["id"];
             $this->other_user_info = $this->model->getUserInfo($this->other_uid);
         }
+        if (!$this->user_info["id"]) {
+            die("You must be logged in.");
+        }
     }
 
     public function Profile($action = null) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (!$this->user_info["id"]) {
-                die("You must be logged in.");
-            }
             switch ($action) {
                 case "follow":
                     if (!isset($_POST["csrftoken"]) || $_POST["csrftoken"] != $_SESSION["csrftoken"]) {
@@ -122,13 +122,15 @@ class SocialController extends BaseController{
     }
 
     public function Group($args = null) {
-        if ($this->user_info === null) {
-            http_response_code(400);
-            header('Location: /');
-            exit;
-        }
         ob_start();
         require_once ROOT_PATH . "/views/social/group.php";
+        $page_content = ob_get_clean();
+        require_once ROOT_PATH . "/views/layout/template.php";
+    }
+
+    public function Leaderboard($args = null) {
+        ob_start();
+        require_once ROOT_PATH . "/views/social/leaderboard.php";
         $page_content = ob_get_clean();
         require_once ROOT_PATH . "/views/layout/template.php";
     }
@@ -222,62 +224,6 @@ class SocialController extends BaseController{
                 echo json_encode("What");
             }
             exit;
-        }
-    }
-
-    public function Avatar_fetch() {
-        header("Content-type: application/json");
-        $usrid = $_GET['id'];
-        $usrid = (int)$usrid;
-        $stmt_check = $this->db->prepare('
-        SELECT username
-        FROM users
-        WHERE id = ?
-        ');
-        $stmt_check->execute([$usrid]);
-
-        if ($stmt_check->rowCount() > 0) {
-            $charisavailable = false;
-            $defaultavatar = [
-                "head" => 1009,
-                "trso" => 23,
-                "lleg" => 301,
-                "rleg" => 301,
-                "larm" => 1009,
-                "rarm" => 1009
-            ];
-
-            $stmt_get_avatar = $this->db->prepare('
-            SELECT colors, equipped
-            FROM profiles
-            WHERE id = ?
-            ');
-            $stmt_get_avatar->execute([$usrid]);
-            $row = $stmt_get_avatar->fetch(PDO::FETCH_ASSOC);
-            $undecoded = [];
-
-            if ($row && !empty($row['colors'])) {
-                $undecoded = $row['colors'];
-                $avatar = json_decode($undecoded, true);
-            } else {
-                $avatar = $defaultavatar;
-            }
-
-            $equipped = json_decode($row['equipped']) ?? array();
-            $response = [
-                "accessories" => $equipped,
-                "colors" => [
-                    "head" => $avatar["head"],
-                    "trso" => $avatar["trso"],
-                    "rarm" => $avatar["rarm"],
-                    "larm" => $avatar["larm"],
-                    "rleg" => $avatar["rleg"],
-                    "lleg" => $avatar["lleg"]
-                ]
-            ];
-            echo json_encode($response);
-        } else {
-            readfile("public/assets/images/404.png");
         }
     }
 }

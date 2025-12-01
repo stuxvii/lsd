@@ -26,11 +26,16 @@ class InfoController extends BaseController {
         require_once ROOT_PATH . "/views/layout/template.php";
     }
 
-    public function Attribution() {
+    public function Main() {
         ob_start();
-        require_once ROOT_PATH . "/views/info/attribution.php";
+        ?>
+        <a href="/info/termsofservice">Terms of Service</a>
+        <a href="/info/privacypolicy">Privacy Policy</a>
+        <a href="/info/status">Service Status</a>
+        <?php
         $page_content = ob_get_clean();
         require_once ROOT_PATH . "/views/layout/template.php";
+
     }
 }
 ?>
