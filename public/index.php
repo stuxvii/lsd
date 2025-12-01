@@ -1,6 +1,5 @@
 <?php
 define('ROOT_PATH', dirname(__DIR__));
-define('REQUEST_TIME', microtime());
 
 session_start();
 

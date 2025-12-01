@@ -227,7 +227,7 @@ async function get_inventory(id) {
 }
 
 switch_category_button.addEventListener("click", 
-    async function(x) {
+    async function() {
         const val = category_selection.value;
         get_inventory(val);
     }

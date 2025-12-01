@@ -5,7 +5,7 @@ class HomeController extends BaseController {
             $can_claim_stipend = ($this->economy["lastbuxclaim"] + 43200) < time() ? true : false;
             if ($can_claim_stipend) {
                 try {
-                    $this->db->startTransaction();
+                    $this->db->beginTransaction();
                     $stmtstipend = $this->db->prepare("UPDATE economy SET `money` = `money` + 25 WHERE id = ?");
                     $stmtstipend->execute([$this->user_info["id"]]);
                     $stmtrefresh = $this->db->prepare("UPDATE economy SET lastbuxclaim = ? WHERE id = ?");

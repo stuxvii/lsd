@@ -143,6 +143,11 @@ $GLOBALS['fonts_list'] = [
         'font_family' => 'papyrus_freak',
         'url' => '/assets/fonts/papyrus.ttf'
     ],
+    [
+        'name' => 'Petscop',
+        'font_family' => 'petscop_wide',
+        'url' => '/assets/fonts/PetscopWide.ttf'
+    ],
 ];
 
 $GLOBALS['asset_types'] = [

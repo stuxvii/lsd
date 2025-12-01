@@ -1,29 +1,30 @@
+// submit a pull request if you dont like it bro https://github.com/stuxvii/lsd
 let plcholdertitle = "lsdbloχ:αlρha";
-const tt=[];let ci=0;for(let e=0;e<9;e++){const t="▁▂▃▄▅▄▃▂".slice(e)+"▁▂▃▄▅▄▃▂".slice(0,e);tt.push(t)}document.addEventListener("DOMContentLoaded",(function(){setInterval((()=>{document.title=plcholdertitle+tt[ci],ci=ci=(ci+1)%tt.length}),400)}));
+const tt = []; let ci = 0; for (let e = 0; e < 9; e++) { const t = "▁▂▃▄▅▄▃▂".slice(e) + "▁▂▃▄▅▄▃▂".slice(0, e); tt.push(t) } document.addEventListener("DOMContentLoaded", (function () { setInterval((() => { document.title = plcholdertitle + tt[ci], ci = ci = (ci + 1) % tt.length }), 400) }));
 
 const codes = [
     ['Y', 'A', 'M', 'E', 'R', 'O'],
-    ['S','P','E','E','N'],
-    ['3','1','4','1','5','9'] // request from eden (id:2)
+    ['S', 'P', 'E', 'E', 'N'],
+    ['3', '1', '4', '1', '5', '9'] // request from eden (id:2)
 ];
 
 let enabled = false;
 let alephenhance = false;
 let curkeys = codes.map(() => 0);
-let audioContext = null;
-let audioBuffer = null;
 
-if (logged_in) {
+function padzero(number) {
+    if (number < 10) {
+        return "0" + String(number)
+    } else {
+        return String(number)
+    }
+};
+
+if (logged_in) { // we wouldnt want to load allat specially since they're not authorized server side
     const clock = document.getElementById("stipend_countdown");
     let last_stipend_time = last_stipend_claim * 1000
     last_stipend_time += 1000
-    function padzero(number) {
-        if (number < 10) {
-            return "0" + String(number)
-        } else {
-            return String(number)
-        }
-    };
+
     function update_stipend_timer() {
         const unix = new Date(last_stipend_time);
         let hours = unix.getUTCHours();
@@ -51,9 +52,91 @@ if (logged_in) {
     const menu_button = document.getElementById('menu_button');
     const you_menu = document.getElementById('you_menu');
 
-    menu_button.addEventListener("click", function() {
+    menu_button.addEventListener("click", function () {
         you_menu.classList.toggle("hidden");
     })
+
+    const playlist_open = document.getElementById('music_playlist_open');
+    const playlist_close = document.getElementById('music_playlist_close');
+    const playlist_menu = document.getElementById('music_playlist');
+    const music_pause = document.getElementById('music_pause');
+    const music_play = document.getElementById('music_play');
+    const music_stop = document.getElementById('music_stop');
+    const music_song_time = document.getElementById('music_song_time');
+    const music_song_duration = document.getElementById('music_song_duration');
+    const music_progressbar = document.getElementById('music_progressbar');
+    const music_song_name = document.getElementById('music_song_name');
+
+    playlist_open.addEventListener("click", function () {
+        playlist_menu.classList.toggle("hidden");
+    })
+
+    addEventListener("beforeunload", function () {
+        localStorage.setItem("position", audio_element.currentTime);
+    })
+
+    const audio_element = new Audio();
+    audio_element.loop = true;
+
+    async function play_song(song_id, current_time = 0) {
+        audio_element.src = "/asset/?id=" + song_id;
+        audio_element.currentTime = current_time;
+        await audio_element.play();
+        music_song_duration.textContent = format_duration(audio_element.duration);
+        music_song_time.textContent = format_duration(audio_element.currentTime);
+        music_song_name.innerHTML = song_names[song_id]["name"];
+        console.log(song_names);
+        localStorage.setItem("current_song", song_id);
+    }
+
+    if (localStorage.getItem("current_song")) {
+        var current_time = localStorage.getItem("position") || 0.00;
+        play_song(localStorage.getItem("current_song"), current_time);
+    }
+
+    music_stop.addEventListener("click", function () {
+        audio_element.pause();
+        audio_element.currentTime = null;
+        localStorage.removeItem("position");
+        localStorage.removeItem("current_song");
+        music_progressbar.style.width = "0%";
+    })
+
+    music_play.addEventListener("click", function () {
+        audio_element.play();
+    })
+
+    music_pause.addEventListener("click", function () {
+        audio_element.pause();
+    })
+
+    playlist_close.addEventListener("click", function () {
+        playlist_menu.classList.toggle("hidden");
+    })
+
+    playlist_menu.addEventListener("click", function (event) {
+        song = event.target;
+        if (song.hasAttribute("song-id")) {
+            song_id = song.getAttribute("song-id");
+            playlist_menu.classList.toggle("hidden");
+            play_song(song_id);
+        }
+    });
+
+    function format_duration(number) {
+        const seconds = Math.floor(number);
+        const minutes = Math.floor(seconds / 60);
+        const remaining_seconds = seconds % 60;
+        const formatted_seconds = String(remaining_seconds).padStart(2, '0');
+
+        return `${minutes}:${formatted_seconds}`;
+    }
+
+    setInterval(() => {
+        music_song_time.textContent = format_duration(audio_element.currentTime);
+        localStorage.setItem("position", audio_element.currentTime);
+        music_progressbar.style.width = audio_element.currentTime / audio_element.duration * 100 + "%";
+    }, 500);
 }
 
 async function magicpaper() {
@@ -76,16 +159,7 @@ async function magicpaper() {
     `;
     newstyle.textContent = css;
     document.head.appendChild(newstyle);
-    const kangel = document.getElementById('speen');
-    if (kangel) { 
-        kangel.src = '/assets/images/kangeldrug.png'
-    }
-    const lsddiv = document.createElement('div');
-    lsddiv.classList = "lsd rainbow";
-    document.body.prepend(lsddiv);
 }
-
-
 
 async function setupSpeen() {
     const newstyle = document.createElement('style');
@@ -130,12 +204,12 @@ async function playaleph() {
 
 function coolfunction(aa) {
     if (aa === 0) {
-        if (!enabled) {magicpaper();}
+        if (!enabled) { magicpaper(); }
         enabled = true;
     } else if (aa === 1) {
         speen();
     } else if (aa === 2) {
-        if (!alephenhance) {playaleph();}
+        if (!alephenhance) { playaleph(); }
         alephenhance = true;
     }
 }
@@ -147,7 +221,7 @@ window.addEventListener('keydown', (e) => {
         let curkey = curkeys[i];
         const nextkey = code[curkey].toLowerCase();
         if (key === nextkey) {
-            curkeys[i]++; 
+            curkeys[i]++;
         } else {
             curkeys[i] = 0;
             if (key === code[0].toLowerCase()) {

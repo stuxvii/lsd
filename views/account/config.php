@@ -8,7 +8,6 @@ ob_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $movebg =    $_POST['movingbg'] ?? false ? 1 : 0;
     $sidebars =  $_POST['sidebars'] ?? false ? 1 : 0;
-    $freakmode =$_POST['freakmode'] ?? false ? 1 : 0;
     $mirrorsb =  $_POST['mirrorsb'] ?? false ? 1 : 0;
     $emojidex =  $_POST['emojidex'] ?? false ? 1 : 0;
     $light_mode =  $_POST['light_mode'] ?? false ? 1 : 0;
@@ -23,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $theme = (int) $scheme;
         }
     }
-
-
 
     if (isset($_POST['font'])) {
         $scheme = $_POST['font'];
@@ -41,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         font = ?,
         sidebarid = ?,
         sidebars = ?,
-        freakmode = ?,
         mirrorsidebars = ?,
         emojidex = ?,
         light_mode = ?
@@ -54,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $font, 
         $sidebarid, 
         $sidebars, 
-        $freakmode,
         $mirrorsb,
         $emojidex,
         $light_mode,
@@ -88,10 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="checkbox" id="emojidex" name="emojidex" <?= $this->preferences["emojidex"] ? "checked" : "" ?>>
                 emojidex Emoji
             </label>
-            <label for="freakmode">
-                <input type="checkbox" id="freakmode" name="freakmode" <?= $this->preferences["freakmode"] ? "checked" : "" ?>>
-                DO NOT.
-            </label>
             <label for="font">Font</label>
             <select id="font" name="font" style="margin-top:6px;">
                 <?php foreach ($GLOBALS["fonts_list"] as $index => $current_font) {?>
@@ -116,19 +107,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </div>
-<script>
-    const INTERNETYAMERO = document.getElementById('freakmode');
-    let playingyamero = false;
-    async function playyamero() {
-        if (playingyamero == false && INTERNETYAMERO.checked == true) {
-            playingyamero = true;
-            const audio = new Audio("/assets/audio/angelbreaking.mp3");
-            audio.volume = 0.3;
-            audio.loop = true;
-            audio.play();
-        }
-    }
-    INTERNETYAMERO.addEventListener('click', function(event) {
-        playyamero()
-    })
-</script>

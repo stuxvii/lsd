@@ -128,8 +128,10 @@ class AssetController extends BaseController {
             exit;
         }
 
-        header("Content-Disposition: attachment; filename=\"download\"");
-        header("Content-type: application/octet-stream");
+        $last_modified_time = @filemtime($file_path);
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $last_modified_time) . ' GMT');
+        header('Cache-Control: public, max-age=' . 31536000);
+        header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 31536000) . ' GMT');
         echo file_get_contents($file_path);
         exit;
     }
