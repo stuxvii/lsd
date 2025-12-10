@@ -19,6 +19,7 @@ if (!empty($invarray) && in_array($itemid,$invarray)) {
 if ($row) {
     // Fetch basic info
     $value = $row['value'];
+    $texture = $row['hat_texture'];
     $itemname = htmlspecialchars($row['name']);
     $itemdesc = htmlspecialchars($row['desc']);
     $itemupts = $row['uploadts']; // upload date as a unix timestamp
@@ -46,16 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $owner == $this->user_info["id"]) {
 
         $stmtupditem = $this->db->prepare('
         UPDATE items
-        SET value = ?, name = ?, `desc` = ?, `public` = ?
+        SET value = ?, name = ?, `desc` = ?, `public` = ?, hat_texture = ?
         WHERE id = ?
         ');
-        $stmtupditem->execute([$_POST['itemprice'], $_POST['itemname'], $_POST['itemdesc'], $changedtopublic, $itemid]);
+        $stmtupditem->execute([$_POST['itemprice'], $_POST['itemname'], $_POST['itemdesc'], $changedtopublic, $_POST['texture'], $itemid]);
         header("Location: item?id=$itemid");
         exit;
     }
     ob_start();
     ?>
-    <form method="post" action="item?id=<?=$itemid;?>">
+    <form method="post" action="/asset/item?id=<?=$itemid;?>">
         Item name
         <br>
         <input type="text" placeholder="My epic asset" name="itemname" id="itemname" required value="<?=$itemname;?>">
@@ -70,6 +71,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $owner == $this->user_info["id"]) {
         Price
         <br>
         <input type="number" placeholder="0" name="itemprice" id="itemprice" required value="<?=$value;?>">
+        <?php if ($type == 9): ?>
+        <br>
+        Texture (for accessories)
+        <br>
+        <input type="number" placeholder="0" name="texture" id="texture" required value="<?=$texture;?>">
+        <?php endif; ?>
         <br>
         <input type="submit" value="Update" style="margin-top:1rem;">
     </form>
@@ -135,9 +142,12 @@ ob_start();
         </button>
         <?php endif; ?>
         <?php if ($owner == $this->user_info["id"]): ?>
-        <button onclick="promptmanage(<?=$itemid;?>)" style="background-color:var(--good);">
-            Manage
-        </button>
+            <button onclick="promptmanage(<?=$itemid;?>)" style="background-color:var(--good);">
+                Manage
+            </button>
+        <form method="post" action="/asset/item/refresh?id=<?=$itemid;?>">
+            <input type="submit" value="Refresh thumbnail">
+        </form>
         <?php endif;?>
     </div> <?php } else { header("Location: 404.html"); }?>
     <script src="/assets/js/item.js">

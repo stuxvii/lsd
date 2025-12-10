@@ -83,13 +83,14 @@ if (logged_in) { // we wouldnt want to load allat specially since they're not au
         playlist_menu.classList.toggle("hidden");
     })
 
-    addEventListener("beforeunload", function () {
+    addEventListener("pagehide", function () {
         localStorage.setItem("position", audio_element.currentTime);
     })
 
+    
     const audio_element = new Audio();
     audio_element.loop = true;
-
+    
     async function play_song(song_id, current_time = 0) {
         audio_element.src = "/asset/?id=" + song_id;
         await new Promise(resolve => {
@@ -181,6 +182,9 @@ async function magicpaper() {
     `;
     newstyle.textContent = css;
     document.head.appendChild(newstyle);
+    const rainbow = document.createElement('div');
+    rainbow.classList = "lsd rainbow";
+    document.body.prepend(rainbow);
 }
 
 async function speen() {

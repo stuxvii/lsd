@@ -203,7 +203,7 @@ async function get_inventory(id) {
                 catalog_item_button.textContent = item.equipped ? "Unequip" : "Equip";
 
                 const catalog_item_thumb = document.createElement("img");
-                catalog_item_thumb.classList.add("itemimg");
+                catalog_item_thumb.classList.add("catalogitemimg");
                 catalog_item_thumb.classList.add("catalogitemasset");
                 catalog_item_thumb.src = "/asset/thumbnail?id=" + item.id;
 

@@ -109,7 +109,7 @@ ob_start();
 		<div class="fc" style="justify-content: space-between">
 			<div class="fc aifs">
             <h1>
-				<?=$this->other_user_info['id'] == 2 ? "<span title='This user donated when donations were open.'>🌟</span>" : ""?>
+				<?=$this->other_user_info['id'] == 2 ? "<span title='This user donated.'>🌟</span>" : ""?>
 				<?= $this->other_user_info['isoperator'] ? '「' . $this->other_user_info['username'] . '」' : $this->other_user_info['username']; ?>
 			</h1>
             

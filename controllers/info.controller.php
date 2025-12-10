@@ -39,6 +39,10 @@ class InfoController extends BaseController {
         <a href="https://t.me/acidbox93">Telegram</a>
         <a href="https://smp18.simplex.im/a#Y_8nW6diBoByt6U3BWHaTmIRFPTHnHXMWNcxTMYxAAQ">SimpleX</a>
         <a href="mailto:acid@lsdblox.cc">Personal e-mail (acid@lsdblox.cc)</a>
+        <hr>
+        <span>-- Donate to acidbox --</span>
+        <hr>
+        <a href="https://buymeacoffee.com/acidbox">Buy me a coffee</a>
         <?php
         $page_content = ob_get_clean();
         require_once ROOT_PATH . "/views/layout/template.php";

@@ -68,7 +68,15 @@ class AssetController extends BaseController {
         require ROOT_PATH . "/views/layout/template.php";
     }
 
-    public function Item() {
+    public function Item($args = null) {
+        switch ($args) {
+            case "refresh":
+                if ($this->item_info && ($this->item_info["owner"] == $this->user_info["id"])) {
+                    unlink(ROOT_PATH . "/cache/" . $this->item_info["id"] . ".png");
+                    header("Location: /asset/item?id=" . $this->item_info["id"]);
+                }
+                break;
+        }
         ob_start();
         ?><meta property="og:title" content="LSDBlox - <?=htmlspecialchars($this->item_info["name"])?>">
         <meta property="og:description" content="<?=htmlspecialchars($this->item_info["desc"])?>">
@@ -100,7 +108,7 @@ class AssetController extends BaseController {
         $item = $this->item_info;
         $file_path = $_SERVER['DOCUMENT_ROOT'] . '/assets/images/modpending.png';
 
-        if ($this->id <= 0 || !is_numeric($this->id)) {
+        if ($this->item_info) {
             http_response_code(400);
             exit('Invalid file request.');
         }
