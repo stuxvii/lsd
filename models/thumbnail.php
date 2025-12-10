@@ -97,9 +97,9 @@ if ($type == 'T-Shirt' || $type == 'Decals' || $type == 'Face') {
 }
 
 if (!file_exists(ROOT_PATH . "/cache/$file_id.png")) {
-    $ch = curl_init("http://localhost:8000");
+    $ch = curl_init("http://localhost:6767");
 
-    $params = ['id' => $file_id];
+    $params = ['id' => $file_id, 'job_type' => 2];
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

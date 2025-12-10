@@ -34,7 +34,10 @@ class AccountController extends BaseController {
             
             if ($do_db_request) {
                 if ($user_data && password_verify($pass, $user_data['pass'])) {
-                    setcookie('.ROBLOSECURITY', $user_data['authuuid'], ['expires' => time() + (86400 * 30),'path' => '/','domain' => '.lsdblox.cc','secure' => true,'httponly' => true,'samesite' => 'Strict']);
+                    setcookie('.ROBLOSECURITY', $user_data['authuuid'], ['expires' => time() + (86400 * 30),'path' => '/','domain' => '.lsdblox.cc','secure' => false,'httponly' => true,'samesite' => 'Strict']);
+                    if ($_POST["onionlogin"]) {
+                        setcookie('.ROBLOSECURITY', $user_data['authuuid'], ['expires' => time() + (86400 * 30),'path' => '/','domain' => '.lsdbxbms4nzgdhbz3u7hm32fdf2ghitwmure4i67apaaee6ebmchuzyd.onion','secure' => false,'httponly' => true,'samesite' => 'Strict']);
+                    }
                     header("Location: /");
                     exit;
                 } else {
@@ -90,6 +93,13 @@ class AccountController extends BaseController {
     }
 
     public function Register() {
+        if ($this->user_info) {
+            header("Location: /");
+            exit;
+        }
+
+        $secure = $_SERVER['HTTPS'] ?? false; if (!$secure) {header("Location: /");}
+
         function key_gen() {
             return bin2hex(random_bytes(64));
         }

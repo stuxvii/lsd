@@ -154,7 +154,7 @@ if (isset($this->user_info['id'])) {
 							<a href="/moderation/">Moderate</a>
 							<a href="/moderation/reports">Reports</a>
 							<?php endif; ?>
-							<a href="/info/">Legal</a>
+							<a href="/info/">Info</a>
 							<a href="/account/config">Settings</a>
 							<a href="/account/logout">Log out</a>
 						</div>
@@ -162,7 +162,7 @@ if (isset($this->user_info['id'])) {
 					<?php endif; ?>
 					<?php endif; ?>
 				</div>
-				<?php if ($secure && !$this->user_info): ?>
+				<?php if (!$this->user_info): ?>
 				<div class="v_mid">
 					<a href="/account/login">Login</a>
 					<a href="/account/register">Register</a>

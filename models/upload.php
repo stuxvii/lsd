@@ -36,7 +36,7 @@ function handle_db_operations(
         $assetvisibility = (int)$assetvisibility ?? 0;
         $false = 0;
         $true = 1;
-        
+        $texture = $texture == 9 ? $texture : null;
         try {
             $db->beginTransaction();
             $uploadts = time();
@@ -108,8 +108,20 @@ switch ($assettype) {
         $fee = 10;
         break;
 
+    case 7:
+        $fee = 50;
+        break;
+
+    case 8:
+        $fee = 250;
+        break;
+
+    case 9:
+        $fee = 75;
+        break;
+
     case 10:
-        $fee = 5;
+        $fee = 500;
         break;
     
     default:

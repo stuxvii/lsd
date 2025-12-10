@@ -136,6 +136,10 @@ class AssetController extends BaseController {
         exit;
     }
 
+    public function Ad() {
+        require_once ROOT_PATH . "/views/asset/ad_iframe.php";
+    }
+
     public function Meshvalidate() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mesh = $_POST["mesh"];

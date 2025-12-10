@@ -12,7 +12,9 @@ $GLOBALS['mime_types'] = [
         'audio/x-wav',
         'audio/ogg',
         'audio/wav',
-        'audio/opus'],
+        'audio/opus',
+        'audio/webm'
+    ],
     'obj' => ['text/plain'],
 ];
 
@@ -151,7 +153,7 @@ $GLOBALS['fonts_list'] = [
 ];
 
 $GLOBALS['asset_types'] = [
-    'image' => [1, 4, 5, 6, 7],
+    'image' => [1, 4, 5, 6, 7, 10],
     'audio' => [2],
     'obj' => [8, 9],
 ];

@@ -140,11 +140,8 @@ ob_start();
         </button>
         <?php endif;?>
     </div> <?php } else { header("Location: 404.html"); }?>
-<script>
-const csrftoken = '<?=$_SESSION["csrftoken"]?>';
-
-</script>
-<script src="/assets/js/item.js">
-</script>
+    <script src="/assets/js/item.js">
+        </script>
 </div>
 </div>
+<?=$this->insertAd()?>

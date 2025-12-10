@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mirrorsb =  $_POST['mirrorsb'] ?? false ? 1 : 0;
     $emojidex =  $_POST['emojidex'] ?? false ? 1 : 0;
     $light_mode =  $_POST['light_mode'] ?? false ? 1 : 0;
+    $ads =  $_POST['ads'] ?? false ? 1 : 0;
     
     $sidebarid = (int)$_POST['sidebarid'] ?? 1;
     $theme = 0;
@@ -40,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         sidebars = ?,
         mirrorsidebars = ?,
         emojidex = ?,
-        light_mode = ?
+        light_mode = ?,
+        ads = ?
     WHERE id = ?
     ");
 
@@ -53,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mirrorsb,
         $emojidex,
         $light_mode,
-        $this->user_info["id"]
+        $ads,
+        (int)$this->user_info['id']
     ]);
 
     header('Location: /account/config');
@@ -82,6 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="emojidex">
                 <input type="checkbox" id="emojidex" name="emojidex" <?= $this->preferences["emojidex"] ? "checked" : "" ?>>
                 emojidex Emoji
+            </label>
+            <label for="ads">
+                <input type="checkbox" id="ads" name="ads" <?= $this->preferences["ads"] ? "checked" : "" ?>>
+                Enable site-wide user advertisements
             </label>
             <label for="font">Font</label>
             <select id="font" name="font" style="margin-top:6px;">

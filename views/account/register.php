@@ -1,16 +1,3 @@
-
-<?php
-if (isset($_COOKIE['_ROBLOSECURITY'])) {
-    header("Location: /");
-    exit;
-}
-$secure = null;
-if (isset($_SERVER['HTTPS'])) {
-    $secure =  $_SERVER['HTTPS'];
-} else {
-    header("Location: /");
-}
-?>
 <div class="midh">
     <div id="deleteifsuccess">
         <form method="post" action="/account/register" class="fc border">

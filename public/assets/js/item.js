@@ -28,7 +28,6 @@ function promptmanage(itemId) {
         if (data.status === 'success') {
             container.className = "focus";
             container.innerHTML = data.message;
-            console.log(data.message);
         } else {
             container.textContent = data.message;
             console.log('Auth failure:', data);
@@ -41,42 +40,6 @@ function promptmanage(itemId) {
     })
 };
 
-function setimagemain(itemId) {
-    if (!itemId) {
-        console.error("Item ID not found for purchase.");
-        return;
-    }
-    this.disabled = true;
-    const postData = new URLSearchParams();
-    postData.append('itemid', itemId);
-
-    fetch('/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: postData
-    })
-    .then(response => {
-        return response.json().then(data => {
-            if (!response.ok) {
-                throw new Error(data.message || 'Server error occurred.'); 
-            }
-            return data;
-        });
-    })
-    .then(data => {
-        if (data.status === 'success') {
-            location.href = "/";
-        }
-    })
-    .catch(error => {
-        console.error('Fetch error:', error);
-    })
-    .finally(() => {
-        this.disabled = false;
-    });
-};
 function purchase(itemId) {
     const statusMessage = document.getElementById('purchase-status-message');
     const amountPesos = document.getElementById('amountofmoney');
@@ -109,7 +72,7 @@ function purchase(itemId) {
     .then(data => {
         if (data.status === 'success') {
             statusMessage.textContent = data.message || `Item ${itemId} purchased successfully!`;
-            amountPesos.textContent = data.newmoney;
+            amountPesos.textContent = "¥" + data.newmoney;
             statusMessage.style.color = 'green';
         } else {
             statusMessage.textContent = data.message || 'Purchase failed with an unknown error. You have not been charged.';

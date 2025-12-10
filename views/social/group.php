@@ -193,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </form>
 <div class="fr">
 <div class="fc">
+<?=$this->insertAd()?>
 <?= $status ?>
 <div class="border fc">
 	<button onclick="document.getElementById('buy_group').className = 'focus'">Buy Group</button>

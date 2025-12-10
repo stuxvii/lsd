@@ -99,7 +99,8 @@ if (isset($_GET['raw'])) {
     exit;
 }
 ?>
-<div class=" fc">
+<div class="fr">
+<div class="fc">
     <span>Updating in <span id="countdown">x</span>s</span>
 <div class="border fc aifs">
     <span>Current server load: <span id="load" title="May not be 100% accurate.">xx</span>%</span>
@@ -110,9 +111,11 @@ if (isset($_GET['raw'])) {
     </span>
 </div>
 <div class="border fc aifs">
-    <span><span style="color:var(--primary-color);background-color:var(--secondary-color);padding:3px;margin-right:4px;">GET</span>http://lsdblox.cc/info/status?raw</span>
+    <span><span style="color:var(--primary-color);background-color:var(--secondary-color);padding:3px;margin-right:4px;">GET</span>/info/status?raw</span>
     <span>Cooldown: 1000ms</span>
 </div>
+</div>
+<?=$this->insertAd()?>
 </div>
 <script>
 

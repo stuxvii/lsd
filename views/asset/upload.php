@@ -2,43 +2,72 @@
     <div class="border">
         <table>
             <tr>
-                <th></th>
-                <th>T-Shirt</th>
+                <th>Category</th>
+                <th>Format</th>
+                <th>Requirement</th>
+                <th>Price</th>
+                <th>Extra information</th>
+            </tr>
+            <tr>
                 <th>Decal</th>
-                <th>Shirt</th>
-                <th>Pants</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th>Can be any image</th>
+                <th>Free</th>
+            </tr>
+            <tr>
                 <th>Audio</th>
-                <th>Mesh</th>
+                <th>MP3/OGG/WAV/OPUS</th>
+                <th>Credit the creator</th>
+                <th>¥100</th>
             </tr>
             <tr>
-                <td>Format</td>
-                <td>PNG-JPEG-WEBP</td>
-                <td>PNG-JPEG-WEBP</td>
-                <td>PNG-JPEG-WEBP</td>
-                <td>PNG-JPEG-WEBP</td>
-                <td>MP3-WAV-OGG-OPUS</td>
-                <td>Plain text</td>
+                <th>T-Shirt</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th>Can be any image</th>
+                <th>Free</th>
             </tr>
             <tr>
-                <td>Requirement</td>
-                <td>Can be any image</td>
-                <td>Can be any image</td>
-                <td><a href="/images/Template-Shirts-R15.png">Template</a></td>
-                <td><a href="/images/Template-Pants-R15.png">Template</a></td>
-                <td>Credit the creator</td>
-                <td>Must be V1.0 <a href="https://bitl.itch.io/novetus">OBJ2MESH Converter</a></td>
+                <th>Shirt</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th><a href="/assets/images/Template-Shirts-R15.png">Template</a></th>
+                <th>¥10</th>
             </tr>
             <tr>
-                <td>Price</td>
-                <td>Free</td>
-                <td>Free</td>
-                <td>¥10</td>
-                <td>¥10</td>
-                <td>¥100</td>
-                <td>¥5</td>
+                <th>Pants</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th><a href="/assets/images/Template-Pants-R15.png">Template</a></th>
+                <th>¥10</th>
+            </tr>
+            <tr>
+                <th>Face</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th>Can be any image</th>
+                <th>¥50</th>
+            </tr>
+            <tr>
+                <th>Head</th>
+                <th>OBJ</th>
+                <th></th>
+                <th>¥250</th>
+                <th>Map the UVs correctly for faces!</th>
+            </tr>
+            <tr>
+                <th>Hat</th>
+                <th>OBJ</th>
+                <th>Upload the texture as a decal before uploading the hat itself.</th>
+                <th>¥75</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>Ad</th>
+                <th>PNG/JPEG/WEBP</th>
+                <th>Can be any image, preferably 300px by 300px.</th>
+                <th>¥500</th>
+                <th>Will last a week (7 days/604800 seconds)</th>
             </tr>
         </table>
         <span>Note that assets <b>will</b> be processed, parsed, and compressed!</span>
+        <span>Also btw most prices are arbitrary. If you have any issues with 'em discuss it with me personally.</span>
         <button onclick="hidehelp()">Close</button>
     </div>
 </div>
@@ -47,18 +76,22 @@
     <form id="plrform" method="post" action="/asset/upload" enctype="multipart/form-data" class="fc aifs">
         <input type="file" id="filetoupload" name="filetoupload" required>
         <br>
-        <span>Name</span>
+        <span id="itemname_label">Name</span>
         <input type="text" placeholder="My epic asset" name="itemname" id="itemname" required>
         <br>
-        Description
+        <label for="itemdesc" id="itemdesc_disp">
+            <span>Description</span>
+            <br>
+            <textarea type="textarea" placeholder="Nice shirt with alpha. Get good LSDBLOX street cred with this shirt." rows="4" cols="16" name="itemdesc" id="itemdesc"></textarea>
+        </label>
         <br>
-        <textarea type="textarea" placeholder="Nice shirt with alpha. Get good LSDBLOX street cred with this shirt." rows="4" cols="16" name="itemdesc" id="itemdesc"></textarea>
+        <label for="itemprice" id="itemprice_disp">
+            <span>Price</span>
+            <br>
+            <input type="number" placeholder="0" value="0" name="itemprice" id="itemprice" required>
+        </label>
         <br>
-        Price
-        <br>
-        <input type="number" placeholder="0" value="0" name="itemprice" id="itemprice" required>
-        <br>
-        <label for="public">
+        <label for="public" id="public_disp">
             <input type="checkbox" name="public" id="public" checked>
             Public
         </label>
@@ -69,9 +102,10 @@
             <option value="4">T-Shirt</option>
             <option value="5">Shirt</option>
             <option value="6">Pants</option>
-            <option value="7">Face (Image)</option>
-            <option value="8">Head (OBJ)</option>
-            <option value="9">Hat (OBJ)</option>
+            <option value="7">Face</option>
+            <option value="8">Head</option>
+            <option value="9">Hat</option>
+            <option value="10">Ad</option>
         </select>
         <br>
         <label hidden id="texture_label" for="texture">
@@ -82,7 +116,7 @@
         <input type="submit" value="Upload">
     </form>
 </div>
-<button onclick="showhelp()">Show help</button>
+<button onclick="showhelp()">Information</button>
 <script>
     const form = document.getElementById('plrform');
     const statusMessage = document.getElementById('status-message');
@@ -96,18 +130,31 @@
     }
 
     document.getElementById('type').addEventListener('input', function() {
-        if (document.getElementById('type').value == 9 || document.getElementById('type').value == 8) {
+        if (document.getElementById('type').value == 9) {
             document.getElementById('texture_label').removeAttribute("hidden", false);
             document.getElementById('texture').type = "number";
         } else {
             document.getElementById('texture_label').setAttribute("hidden", true);
             document.getElementById('texture').type = "hidden";
         }
+        if (document.getElementById('type').value == 10) {
+            document.getElementById('itemdesc_disp').classList.add("hidden");
+            document.getElementById('itemprice_disp').classList.add("hidden");
+            document.getElementById('public_disp').classList.add("hidden");
+            document.getElementById('itemname_label').textContent = "Link";
+            document.getElementById('itemname').setAttribute('placeholder', 'https://lsdblox.cc/social/groups?id=1');
+        } else {
+            document.getElementById('itemdesc_disp').classList.remove("hidden");
+            document.getElementById('itemprice_disp').classList.remove("hidden");
+            document.getElementById('public_disp').classList.remove("hidden");
+            document.getElementById('itemname_label').textContent = "Name";
+            document.getElementById('itemname').setAttribute('placeholder', 'My epic asset');
+        }
     })
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        if ((document.getElementById('type').value == 9 || document.getElementById('type').value == 8) && document.getElementById('texture').value == undefined) {
+        if ((document.getElementById('type').value == 9) && document.getElementById('texture').value == undefined) {
             if (!confirm("WARNING! YOU HAVE **NOT** SET A TEXTURE FOR THIS HAT! You may wish to select one. Press OK/Accept to continue anyways.")) {
                 return;
             }

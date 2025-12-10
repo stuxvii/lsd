@@ -194,8 +194,8 @@ switch ($args) {
             $_SESSION["casino_blackjack_player_status"] = "lost";
         }
 
-        if ($_SESSION["casino_blackjack_player_status"] == "lost" || $_SESSION["casino_blackjack_player_status"] == "won") {
-            $dealer_hand = $cards;
+        if ($_SESSION["casino_blackjack_player_status"] != "playing") {
+            $dealer_hand = $_SESSION["casino_blackjack_deal_hand"];
             $dealer_card_sum = array_sum($_SESSION["casino_blackjack_deal_hand"]);
         }
         die(

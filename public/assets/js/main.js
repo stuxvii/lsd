@@ -1,6 +1,18 @@
 // submit a pull request if you dont like it bro https://github.com/stuxvii/lsd
 let plcholdertitle = "lsdbloχ:αlρha";
-const tt = []; let ci = 0; for (let e = 0; e < 9; e++) { const t = "▁▂▃▄▅▄▃▂".slice(e) + "▁▂▃▄▅▄▃▂".slice(0, e); tt.push(t) } document.addEventListener("DOMContentLoaded", (function () { setInterval((() => { document.title = plcholdertitle + tt[ci], ci = ci = (ci + 1) % tt.length }), 400) }));
+
+const tt = [];
+let ci = 0; 
+for (let e = 0; e < 9; e++) {
+    const t = "▁▂▃▄▅▄▃▂".slice(e) + "▁▂▃▄▅▄▃▂".slice(0, e); tt.push(t)
+}
+
+document.addEventListener("DOMContentLoaded", (function () { 
+    setInterval((() => { 
+        document.title = plcholdertitle + tt[ci], ci = ci = (ci + 1) % tt.length 
+    }), 400) 
+}
+));
 
 const codes = [
     ['Y', 'A', 'M', 'E', 'R', 'O'],
@@ -56,16 +68,16 @@ if (logged_in) { // we wouldnt want to load allat specially since they're not au
         you_menu.classList.toggle("hidden");
     })
 
-    const playlist_open = document.getElementById('music_playlist_open');
-    const playlist_close = document.getElementById('music_playlist_close');
-    const playlist_menu = document.getElementById('music_playlist');
-    const music_pause = document.getElementById('music_pause');
-    const music_play = document.getElementById('music_play');
-    const music_stop = document.getElementById('music_stop');
-    const music_song_time = document.getElementById('music_song_time');
     const music_song_duration = document.getElementById('music_song_duration');
     const music_progressbar = document.getElementById('music_progressbar');
+    const playlist_close = document.getElementById('music_playlist_close');
+    const playlist_open = document.getElementById('music_playlist_open');
     const music_song_name = document.getElementById('music_song_name');
+    const music_song_time = document.getElementById('music_song_time');
+    const playlist_menu = document.getElementById('music_playlist');
+    const music_pause = document.getElementById('music_pause');
+    const music_stop = document.getElementById('music_stop');
+    const music_play = document.getElementById('music_play');
 
     playlist_open.addEventListener("click", function () {
         playlist_menu.classList.toggle("hidden");
@@ -163,16 +175,10 @@ async function magicpaper() {
     plcholdertitle = "NEEDY STREAMER OVERLOAD";
     const newstyle = document.createElement('style');
     const css = `
-        body{animation:movebg calc(calc(1s/var(--bpm))*60)infinite cubic-bezier(0,.1,0,1)}.bounce{animation:bounce calc(calc(1s/var(--bpm))*60)cubic-bezier(0,.1,0,1)infinite}.jump{position:relative;animation:jump calc(calc(1s/var(--bpm))*60)cubic-bezier(0,.1,0,1)infinite}.rainbow{background:linear-gradient(to right,#00ff00,#00ffff,#ff00ff,#ffff00);background-size:400%100%;animation:tripping calc(calc(60s/var(--bpm))*2)cubic-bezier(0,.1,0,1)infinite}.rainbow{background:linear-gradient(to-right,#ef5350,#ff9800,#ffee58,#4caf50,#29b6f6,#9c27b0,#ef5350)}@keyframes bounce{0%{height:400px;rotate:0deg;}95%{height:150px;rotate:360deg;}100%{height:400px;rotate:400deg;}}@keyframes jump{0%{bottom:0;height:200px;width:200px}40%{bottom:50px;height:300px;width:200px}100%{bottom:0;height:200px;width:200px}}@keyframes tripping{0%{background-position:0%0%}100%{background-position:-300%0%}}
+        body {
+            animation: movebg calc(calc(1s / var(--bpm)) * 60) infinite cubic-bezier(0, 0.1, 0, 1);
+        }
     `;
-    newstyle.textContent = css;
-    document.head.appendChild(newstyle);
-}
-
-async function setupSpeen() {
-    const newstyle = document.createElement('style');
-    const css = `
-        @keyframes speen {0% { transform: rotate(0deg); }100% { transform: rotate(1440deg); }}body.is-spinning {animation: speen 2000ms cubic-bezier(0, 0.1, 0, 1) forwards;}`;
     newstyle.textContent = css;
     document.head.appendChild(newstyle);
 }
@@ -243,5 +249,3 @@ window.addEventListener('keydown', (e) => {
         }
     }
 });
-
-setupSpeen();

@@ -203,6 +203,7 @@ ob_start();
 		?>
 	<div class="fr wfa">
 		<?php if ($this->other_profile['showinventory']): ?>
+			<div>STEAL THEIR LOOK!
 			<div class="catalogitemborder" style="width:auto">
 				<?php
 				$equipped = json_decode($this->other_profile['equipped']);
@@ -219,11 +220,12 @@ ob_start();
 				}
 				?>
 			</div>
+			</div>
 		<?php endif; ?>
 
 		<?php if ($this->other_profile['showposts']): ?>
 			<div class="border fc aifs" style="overflow:scroll; max-height:-webkit-fill-available;">
-				<span class="msgdate" style="font-size:0.6em;">Last 6 Posts</span>
+				<span class="msgdate">Last 6 Posts</span>
 				<?php
 				$stmtgetposts = $this->db->prepare('
 					SELECT id, content, uploadtimestamp

@@ -10,6 +10,7 @@ if (isset($this->user_info["id"])) {
         <span>Password: <input type="password" name="pass"></span>
         <a href="#" onclick="alert('Go to #bots on the lsdblox server and issue the \'lsd-resetpass\' command. After that, lsdbot will dm you a temporary password reset link.')">I forgot my password</a>
         <input type="submit" name="submit" value="Login">
+        <label for="onionlogin"><input type="checkbox" name="onionlogin"> onion login <a href="#" onclick="alert('go to http:/\/lsdbxbms4nzgdhbz3u7hm32fdf2ghitwmure4i67apaaee6ebmchuzyd.onion/ using a tor enabled browser! altogether useful if your isp blocks domains like lsdblox\'s.')">?</a></label>
     </form>
     <br>
     <div class="msgbox" style="align-items: center;flex-direction: row;">

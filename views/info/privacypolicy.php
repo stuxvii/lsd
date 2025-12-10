@@ -1,13 +1,13 @@
 <div class="borderfc wfa" style="justify-content: flex-start;align-items: flex-start;">
-    <h3>Privacy Policy</h3>
-    <span>Last modification date: 15th of October, 2025 | 2025-10-15 (YYYY/MM/DD)</span>
+    <h3>Privacy Policy <a href="/info/privacypolicy?plaintext">(click here for a plaintext version)</a> </h3>
+    <span>Last modification date: 11th of November, 2025 | 11/11/25 (YYYY/MM/DD)</span>
     <span>This Privacy Policy describes how lsdblox ("we, "us," or "our") collects, uses, and discloses information when you use our website, lsdblox.cc, and our services (collectively, the "Service"). By using the Service, you acknowledge that you have read and understood this policy and consent to the processing of your information as described herein.</span>
     <br>
     <span>1. Information We Collect</span>
     <span>We collect information you provide directly to us when you use the Service. This includes:</span>
     <span>Account Information: When you create an account, you provide a password, which we store as an Argon2ID hash, and a username, which we store in plain-text. You also provide your Discord User ID, which is attached to your account for security, communication, and wider access to community features.</span>
     <span>User-Generated Content: Any content you input or upload to the site is collected and stored. This includes but is not limited to items, assets, and any other User Generated Content (UGC) such as uploaded images, 3D models, audios, digital spaces, etc. While we do not require or expect you to upload any sensitive personal information, any personal data you voluntarily include in your UGC is also collected and stored.</span>
-    <span>Technical Information: Your IP address may be temporarily stored unhashed in our Apache access logs for a period of up to 7 days to monitor for abuse, exploits, or hacking attempts.</span>
+    <span>Technical Information: Your IP address may be temporarily stored unhashed in our NGINX access logs for a period of up to 7 days to monitor for abuse, exploits, or hacking attempts.</span>
     <span>Activity Logs: We reserve the right to log certain actions you perform on the site, such as purchasing catalog items, failed login attempts, the frequency of your usage of the Service, and other miscellaneous actions for service and security purposes.</span>
     <br>
     <span>2. How We Use Your Information</span>
@@ -30,7 +30,7 @@
     <span>5. Data Retention and Deletion</span>
     <span>Data Deletion: To delete your personally identifiable information such as usernames, passwords, Discord User IDs and preferences you may fill <a href="https://lsdblox.cc/account/delete">the following form.</a></span>
     <span>Full Data Deletion: While your User Generated Content is immediately unlinked from your identity once your identifiable information is erased (You're still identified with a number, but your username and every single bit of PII is changed to "[REDACTED]"), you may make a request to permanently delete your UGC from our servers and backups, as in a GDPR request or similar right that your jurisdiction provides you. To initiate this, you must send an email requesting so to admin@lsdblox.cc.</span>
-    <span>Log Data: IP addresses in our Apache access logs are periodically deleted within a 7-day period.</span>
+    <span>Log Data: IP addresses in our NGINX access logs are periodically deleted within a 7-day period.</span>
     <br>
     <span>6. Security</span>
     <span>While we utilize security measures such as secure hashing for passwords and encryption for data transmission, no security system can be guaranteed to be 100% secure. We urge you to avoid posting any sensitive personal information.</span>

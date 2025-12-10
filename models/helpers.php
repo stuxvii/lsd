@@ -81,6 +81,11 @@ class BaseController {
         $new_message = trim($emojis_rendered);
         return nl2br($new_message);
     }
+    public function insertAd() {
+        if ($this->preferences["ads"]) {
+            echo "<iframe src=\"/asset/ad\" height=\"300\" width=\"300\"></iframe>";
+        }
+    }
 }
 
 class ItemData {
