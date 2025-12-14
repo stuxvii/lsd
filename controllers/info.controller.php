@@ -40,9 +40,14 @@ class InfoController extends BaseController {
         <a href="https://smp18.simplex.im/a#Y_8nW6diBoByt6U3BWHaTmIRFPTHnHXMWNcxTMYxAAQ">SimpleX</a>
         <a href="mailto:acid@lsdblox.cc">Personal e-mail (acid@lsdblox.cc)</a>
         <hr>
-        <span>-- Donate to acidbox --</span>
-        <hr>
+        <span>-- Support acidbox --</span>
         <a href="https://buymeacoffee.com/acidbox">Buy me a coffee</a>
+        <hr>
+        <span>-- Misc --</span>
+        <a href="https://github.com/stuxvii/lsd">Site source</a>
+        <a href="https://github.com/stuxvii/lsd_thumbnail_server">Renderer source</a>
+        <a href="/cdn/playlist.zip">Personal music playlist</a>
+        <a href="/mii_creator/index.html">Mii Creator accountless (WIP)</a>
         <?php
         $page_content = ob_get_clean();
         require_once ROOT_PATH . "/views/layout/template.php";

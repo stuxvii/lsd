@@ -108,7 +108,7 @@ class AssetController extends BaseController {
         $item = $this->item_info;
         $file_path = $_SERVER['DOCUMENT_ROOT'] . '/assets/images/modpending.png';
 
-        if ($this->item_info) {
+        if (!$this->item_info) {
             http_response_code(400);
             exit('Invalid file request.');
         }

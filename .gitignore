@@ -33,3 +33,5 @@ cdn/
 *.*~
 *.kra
 .keys
+mii_creator/
+env*
