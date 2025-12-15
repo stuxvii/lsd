@@ -176,8 +176,7 @@ if (isset($this->user_info['id'])) {
 				<div class="navbar bottomnavbar">
 					<?php if (!$this->user_info): ?>
 					<div class="v_mid">
-						<a href="/info/privacypolicy">Privacy</a>
-						<a href="/info/termsofservice">TOS</a>
+						<a href="/info/">Information</a>
 					</div>
 					<?php endif; ?>
 					<?php if ($this->user_info): ?>
