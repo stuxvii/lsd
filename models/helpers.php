@@ -117,6 +117,13 @@ class BaseController {
             }
         }
     }
+
+    public function showPage($path) {
+        ob_start();
+        require_once ROOT_PATH . "/views/{$path}";
+        $page_content = ob_get_clean();
+        require_once ROOT_PATH . "/views/layout/template.php";
+    }
 }
 
 class ItemData {

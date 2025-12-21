@@ -1,10 +1,10 @@
 <?php
-class SocialController extends BaseController{
-    private $other_user_info;
-    private $other_preferences;
-    private $other_economy;
-    private $other_profile;
-    private $other_uid;
+class SocialController extends BaseController {
+    protected $other_user_info;
+    protected $other_preferences;
+    protected $other_economy;
+    protected $other_profile;
+    protected $other_uid;
 
     public function __CONSTRUCT() {
         parent::__CONSTRUCT();
@@ -18,69 +18,7 @@ class SocialController extends BaseController{
     }
 
     public function Profile($action = null) {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            switch ($action) {
-                case "follow":
-                    if (!isset($_POST["csrftoken"]) || $_POST["csrftoken"] != $_SESSION["csrftoken"]) {
-                        die();
-                    }
-
-                    if (isset($_POST["user"]) && is_numeric($_POST["user"])) {
-                        $user_to_follow = $_POST["user"];
-                    } else {
-                        die(json_encode(["status" => "User is not set"]));
-                    }
-
-                    if ($user_to_follow == $this->user_info["id"]) {
-                        die(json_encode(["status" => "Can't follow yourself"]));
-                    }
-
-                    $is_already_following_stmt = $this->db->prepare('SELECT COUNT(*) as c FROM interaction
-                        WHERE `from_who` = ? AND `to_what` = ? AND type = 1
-                    ');
-                    $is_already_following_stmt->execute([$this->user_info['id'], $user_to_follow]);
-                    $following = true;
-                    
-                    if ($is_already_following_stmt->fetch()["c"] > 0) {
-                        $stmt_unfollow = $this->db->prepare('DELETE FROM interaction
-                            WHERE `from_who` = ? AND `to_what` = ? AND type = 1
-                        ');
-                        $stmt_unfollow->execute([$this->user_info['id'], $user_to_follow]);
-                        $following = false;
-                    } else {
-                        $stmt_follow = $this->db->prepare('INSERT IGNORE INTO interaction (`from_who`, `to_what`, `timestamp`, `type`)
-                            VALUES (?, ?, ?, 1)
-                        ');
-                        $stmt_follow->execute([$this->user_info['id'], $user_to_follow, time()]);
-                        $following = true;
-                    }
-                    
-                    $stmt_get_amount_of_followers = $this->db->prepare('SELECT COUNT(*) as c FROM interaction WHERE to_what = ? AND type = 1');
-                    $stmt_get_amount_of_followers->execute([$user_to_follow]);
-                    $stmt_followers = $stmt_get_amount_of_followers->fetch()["c"];
-                    die(json_encode(["status" => $following, "followers" => $stmt_followers]));
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (isset($this->other_user_info)) {
-            $this->other_preferences = $this->model->getUserSettings($this->other_user_info['id']);
-            $this->other_economy = $this->model->getUserEconomy($this->other_user_info['id']);
-            $this->other_profile = $this->model->getUserProfile($this->other_user_info['id']);
-            $this->other_economy["inv"] = json_decode($this->other_economy["inv"]);
-            ob_start();
-            ?><meta property="og:title" content="<?=$this->other_user_info["username"]?>">
-            <meta property="og:description" content="<?=htmlspecialchars($this->other_profile["desc"])?>">
-            <meta property="og:image" content="https://lsdblox.cc/social/avatar?id=<?=$this->other_uid?>&amp;=<?=time()?>">
-            <meta property="og:type" content="website">
-            <?php
-            $meta_tags = ob_get_clean();
-        }
-        ob_start();
-        require_once ROOT_PATH . "/views/social/profile.php";
-        $page_content = ob_get_clean();
-        require_once ROOT_PATH . "/views/layout/template.php";
+        $this->showPage("social/profile.php");
     }
     
     public function Post() {
