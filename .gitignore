@@ -28,8 +28,6 @@ assets/images
 *.cur
 tuxgolf*
 /.cache/
-/rccservice/
-cdn/
 *.*~
 *.kra
 .keys

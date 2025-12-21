@@ -102,9 +102,7 @@ ob_start();
 <?php if ($this->other_user_info): ?>
 
 	<div class="border" style="flex-direction:row;align-items:normal;justify-content:space-between;height:200%;">
-		<?php if ($charisavailable): ?>
-			<img class='profileimg' src="/social/avatar?id=<?= $this->other_user_info['id'] ?>">
-		<?php endif; ?>
+		<img class='profileimg' src="/social/avatar?id=<?= $this->other_user_info['id'] ?>">
 
 		<div class="fc" style="justify-content: space-between">
 			<div class="fc aifs">

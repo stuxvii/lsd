@@ -156,8 +156,8 @@ async function render() {
             rs.innerHTML = "Render Unavailable";
         } else
         if (request.ok) {
-            renderimg.setAttribute('src', resp + "&t=" + new Date().getTime());
-            console.log("Received URL is: ", resp);
+            renderimg.setAttribute('src', "data:image/png;base64," + resp);
+            console.log("Received data is: ", resp);
             rs.innerHTML = "Done."
         } else {
             rs.innerHTML = "Error: " + stat;

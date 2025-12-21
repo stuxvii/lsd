@@ -261,38 +261,13 @@ class YouController extends BaseController
                     flock($fp, LOCK_UN);
                     fclose($fp);
 
-                    $ch = curl_init("http://localhost:6767");
+                    $rendercontent = $this->getRender($this->user_info["id"], 1);
 
-                    $params = ['id' => $this->user_info["id"], "job_type" => 1];
-                    curl_setopt($ch, CURLOPT_POST, true);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-                    $response = curl_exec($ch);
-
-                    if (curl_errno($ch)) {
-                        $error = curl_error($ch);
-                        echo 'curl error: ' . $error . "\n";
-                    } else {
-                        $httprespcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-                        if ($httprespcode != 200) {
-                            echo "error encountered!!\n";
-                            echo 'HTTP err: ' . $httprespcode . "\n";
-                            echo "response: \n" . $response . "\n";
-                        } else {
-                            if (!empty($response)) {
-                                $base64String = (string) $response;
-                                $rendercontent = base64_decode($base64String);
-                                if (!empty($rendercontent)) {
-                                    file_put_contents("/srv/http/renders/" . $this->user_info["id"] . '.png', $rendercontent);
-                                }
-                            }
-                        }
+                    if (!empty($rendercontent)) {
+                        file_put_contents("/srv/http/renders/" . $this->user_info["id"] . '.png', $rendercontent);
                     }
-                    die("/social/avatar?id=" . $this->user_info["id"]);
+                    
+                    die(base64_encode($rendercontent));
                 } else {
                     header('Location: /account/logout');
                 }

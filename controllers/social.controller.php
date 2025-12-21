@@ -69,7 +69,6 @@ class SocialController extends BaseController{
             $this->other_economy = $this->model->getUserEconomy($this->other_user_info['id']);
             $this->other_profile = $this->model->getUserProfile($this->other_user_info['id']);
             $this->other_economy["inv"] = json_decode($this->other_economy["inv"]);
-            $charisavailable = file_exists(ROOT_PATH . "/renders/" . $this->other_user_info['id'] . ".png");
             ob_start();
             ?><meta property="og:title" content="<?=$this->other_user_info["username"]?>">
             <meta property="og:description" content="<?=htmlspecialchars($this->other_profile["desc"])?>">
@@ -114,36 +113,9 @@ class SocialController extends BaseController{
 
     public function Avatar() {
         if (!file_exists(ROOT_PATH . "/renders/" . $this->other_uid . ".png")) {
-            $ch = curl_init("http://localhost:6767");
-
-            $params = ['id' => $this->other_uid, 'job_type' => 1];
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-            $response = curl_exec($ch);
-
-            if (curl_errno($ch)) {
-                $error = curl_error($ch);
-                echo 'curl error: ' . $error . "\n";
-            } else {
-                $httprespcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-                if ($httprespcode != 200) {
-                    echo "error encountered!!\n";
-                    echo 'HTTP err: ' . $httprespcode . "\n";
-                    echo "response: \n" . $response . "\n";
-                } else {
-                    if (!empty($response)) {
-                        $base64String = (string) $response;
-                        $rendercontent = base64_decode($base64String);
-                        if (!empty($rendercontent)) {
-                            file_put_contents(ROOT_PATH . "/renders/" . $this->other_uid . ".png", $rendercontent);
-                        }
-                    }
-                }
+            $rendercontent = $this->getRender($this->other_uid, 1);
+            if (!empty($rendercontent)) {
+                file_put_contents(ROOT_PATH . "/renders/" . $this->other_uid . ".png", $rendercontent);
             }
         } else {
             $rendercontent = file_get_contents(ROOT_PATH . "/renders/" . $this->other_uid . ".png");

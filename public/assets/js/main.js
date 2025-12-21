@@ -1,5 +1,5 @@
 // submit a pull request if you dont like it bro https://github.com/stuxvii/lsd
-let plcholdertitle = "lsdbloχ:αlρha";
+let plcholdertitle = "LSDβlσχ";
 
 const tt = [];
 let ci = 0; 

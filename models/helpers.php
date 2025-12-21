@@ -86,6 +86,37 @@ class BaseController {
             echo "<iframe src=\"/asset/ad\" height=\"300\" width=\"300\"></iframe>";
         }
     }
+
+    public function getRender($id, $job_type) {
+        $ch = curl_init("http://localhost:6767");
+
+        $params = ['id' => $id, 'job_type' => $job_type];
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            echo 'curl error: ' . $error . "\n";
+        } else {
+            $httprespcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            if ($httprespcode != 200) {
+                echo "error encountered!!\n";
+                echo 'HTTP err: ' . $httprespcode . "\n";
+                echo "response: \n" . $response . "\n";
+            } else {
+                if (!empty($response)) {
+                    $base64String = (string) $response;
+                    return base64_decode($base64String);
+                }
+            }
+        }
+    }
 }
 
 class ItemData {
