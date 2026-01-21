@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LSDBLOX</title>
+        <style>
+            @keyframes movebg {
+                0% { background-position: right 0px bottom 0px; }
+                100% { background-position: right -64px bottom 0px; }
+            }
+
+            :root {
+                --primary-color: #000;
+                --secondary-color: #fff;
+                --bgimg: url(data:image/webp;base64,UklGRjIAAABXRUJQVlA4TCUAAAAvB8ABAA8wgAM4gPMfeFAMgAlkMo2BbR0G2eXQP6CI/seJ6N8BAA==);
+            }
+
+            body {
+                background-image: linear-gradient(#ffffffcc, #ffffffff), var(--bgimg);
+                background-size: 64px;
+                image-rendering: pixelated;
+                background-position: center;
+                background-color: #222;
+
+                font-family:fantasy;
+                animation: movebg 5s infinite linear;
+                height: 100vh;
+            }
+
+            .center {
+                height: 100vh;
+                position: absolute;
+                width: 100vw;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .border {
+                border: 1px solid var(--primary-color);
+                position: relative;
+                padding: 1rem;
+                width: auto;
+                backdrop-filter: blur(4px);
+            }
+            .lsdblox_logo {
+                height: 20px;
+                object-fit: cover;
+                object-position: 0% 100%;
+                width: auto;
+            }
+            * {
+                margin: 0;
+                color: var(--primary-color);
+            }
+            .navbar {
+                background-color: var(--secondary-color);
+                box-shadow: 0px 1px 0px 0px var(--primary-color);
+                display: flex;
+                justify-content: space-between;
+                position: absolute;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <img src="logo.gif" class="lsdblox_logo">
+            <span>
+                2025-2026
+            </span>
+        </div>
+        <div class="center">
+            <div class="border">
+                Your interest in LSDBLOX is appreciated, but I have decided to end this service.
+                <br>
+                All user data has been deleted but this site will remain online until the domain expires.
+                <br>
+                Look forward to more projects in <a href="https://github.com/stuxvii">my GitHub</a>
+            </div>
+        </div>
+    </body>
+</html>
